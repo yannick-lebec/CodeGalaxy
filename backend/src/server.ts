@@ -1,13 +1,23 @@
-import express from "express";
-import cors from "cors";
+import express from "express"
+import cors from "cors"
+import dotenv from "dotenv"
+import authRoutes from "./routes/auth.routes"
+import userRoutes from "./routes/user.routes"
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+dotenv.config()
 
-// health
-app.get("/api/health", (_, res) => res.json({ ok: true }));
+const app = express()
 
+app.use(cors({ origin: "http://localhost:5173" }))
+app.use(express.json())
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Backend listening on ${PORT}`));
+app.get("/", (_req, res) => res.json({ ok: true }))
+
+app.use("/auth", authRoutes)
+app.use("/user", userRoutes)
+
+const PORT = Number(process.env.PORT) || 3000
+
+app.listen(PORT, () => {
+  console.log(`Backend listening on ${PORT}`)
+})
