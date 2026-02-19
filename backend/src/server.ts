@@ -1,10 +1,15 @@
+import "dotenv/config";
 import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import authRoutes from "./routes/auth.routes"
 import userRoutes from "./routes/user.routes"
+import { initDb } from "./db/init";
 
-dotenv.config()
+
+initDb()
+  .then(() => console.log("DB ready"))
+  .catch((err) => console.error("DB init error:", err));
 
 const app = express()
 

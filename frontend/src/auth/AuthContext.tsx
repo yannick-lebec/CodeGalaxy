@@ -1,12 +1,5 @@
-import React, { useEffect, useState, createContext } from "react";
-
-export type AuthContextType = {
-  token: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-};
-
-export const AuthContext = createContext<AuthContextType | null>(null);
+import React, { useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(() =>
