@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { createContext, useEffect, useState } from "react";
+
+export type AuthContextType = {
+  token: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(() =>
@@ -19,10 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     const data = await res.json().catch(() => ({}));
-
-    if (!res.ok) {
-      throw new Error(data?.message || "Login failed");
-    }
+    if (!res.ok) throw new Error(data?.message || "Login failed");
 
     setToken(data.token);
   }
