@@ -1,6 +1,9 @@
 import { useState } from "react";
-import CodeEditor from "./componants/CodeEditor";
 import "./index.css";
+import EditorCard from "./componants/EditorCard";
+import Header from "./componants/Header";
+import HeroCard from "./componants/HeroCard";
+import Preview from "./componants/Preview";
 
 export default function App() {
   const [code, setCode] = useState(`<h1>Mon premier titre</h1>
@@ -8,51 +11,14 @@ export default function App() {
 
   return (
     <div className="cg-app">
-      <header className="cg-header">
-        <div className="cg-header-inner">
-          <div className="title">
-            <div className="brand">
-              CodeGalaxy <span className="sparkle">✨</span>
-            </div>
-            <div className="subtitle">Explore l'univers du code</div>
-          </div>
-
-          {/* Auth supprimée : plus de bouton logout */}
-        </div>
-      </header>
-
+      <Header />
       <main className="cg-main container">
-        <section className="hero-card">
-          <div className="hero-left">
-            <div className="badge">1</div>
-            <h2>Crée tes premiers éléments HTML !</h2>
-            <p>
-              Apprends à créer un titre avec &lt;h1&gt; et un paragraphe avec
-              &lt;p&gt;.
-            </p>
-          </div>
-        </section>
+        <HeroCard onStart={() => setCode("")} />
 
         <section className="work-area" style={{ position: "relative" }}>
-          {/* Auth supprimée : plus de blocage */}
-          <div className="editor-card">
-            <div className="card-title">Labo de Code</div>
-            <div className="editor-wrapper">
-              <CodeEditor code={code} onChange={setCode} />
-            </div>
-          </div>
+          <EditorCard code={code} onChange={setCode} />
 
-          <div className="preview-card">
-            <div className="card-title"> 🚀 Résultat Magique</div>
-            <div className="preview-wrapper">
-              <iframe
-                title="preview"
-                sandbox="allow-scripts"
-                srcDoc={code}
-                className="preview-iframe"
-              />
-            </div>
-          </div>
+          <Preview code={code} />
         </section>
       </main>
     </div>

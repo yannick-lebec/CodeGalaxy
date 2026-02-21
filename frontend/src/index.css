@@ -12,24 +12,6 @@ body,
   color: #111;
 }
 
-.cg-btn {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
-  color: white;
-  cursor: pointer;
-}
-
-.auth-gate {
-  width: 100%;
-  border-radius: 16px;
-  padding: 20px;
-  background: rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(4px);
-}
-
 /* top header */
 .cg-header {
   background: linear-gradient(90deg, #412268 0%, #ff6fd8 60%, #ffd36e 100%);
@@ -111,6 +93,13 @@ body,
   opacity: 0.95;
 }
 
+.btn-commencer{
+  background: #ffd36e;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: 2px solid #412268;
+}
 
 .work-area {
   display: flex;
