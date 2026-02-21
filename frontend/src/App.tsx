@@ -1,12 +1,8 @@
 import { useState } from "react";
 import CodeEditor from "./componants/CodeEditor";
-import { useAuth } from "./auth/useAuth";
-import Login from "./pages/Login";
 import "./index.css";
 
 export default function App() {
-  const { token, logout } = useAuth();
-
   const [code, setCode] = useState(`<h1>Mon premier titre</h1>
 <p>Ceci est mon premier paragraphe !</p>`);
 
@@ -21,11 +17,7 @@ export default function App() {
             <div className="subtitle">Explore l'univers du code</div>
           </div>
 
-          {token && (
-            <button onClick={logout} className="cg-btn">
-              Se déconnecter
-            </button>
-          )}
+          {/* Auth supprimée : plus de bouton logout */}
         </div>
       </header>
 
@@ -42,34 +34,25 @@ export default function App() {
         </section>
 
         <section className="work-area" style={{ position: "relative" }}>
-          {/* 🔒 Si pas connecté, on bloque la zone avec Login */}
-          {!token ? (
-            <div className="auth-gate">
-              <h2>🔒 Connecte-toi pour débloquer le Labo</h2>
-              <Login />
+          {/* Auth supprimée : plus de blocage */}
+          <div className="editor-card">
+            <div className="card-title">Labo de Code</div>
+            <div className="editor-wrapper">
+              <CodeEditor code={code} onChange={setCode} />
             </div>
-          ) : (
-            <>
-              <div className="editor-card">
-                <div className="card-title">Labo de Code</div>
-                <div className="editor-wrapper">
-                  <CodeEditor code={code} onChange={setCode} />
-                </div>
-              </div>
+          </div>
 
-              <div className="preview-card">
-                <div className="card-title"> 🚀 Résultat Magique</div>
-                <div className="preview-wrapper">
-                  <iframe
-                    title="preview"
-                    sandbox="allow-scripts"
-                    srcDoc={code}
-                    className="preview-iframe"
-                  />
-                </div>
-              </div>
-            </>
-          )}
+          <div className="preview-card">
+            <div className="card-title"> 🚀 Résultat Magique</div>
+            <div className="preview-wrapper">
+              <iframe
+                title="preview"
+                sandbox="allow-scripts"
+                srcDoc={code}
+                className="preview-iframe"
+              />
+            </div>
+          </div>
         </section>
       </main>
     </div>

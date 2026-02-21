@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Editor from "@monaco-editor/react";
+import Editor, { type OnMount } from "@monaco-editor/react";
 
 export default function CodeEditor({
   code,
@@ -8,10 +8,11 @@ export default function CodeEditor({
   code: string;
   onChange: (value: string) => void;
 }) {
-  const editorRef = useRef(null);
+  const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
 
-  function handleMount(editor, monaco) {
+  const handleMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
+
     monaco.editor.defineTheme("cg-dark", {
       base: "vs-dark",
       inherit: true,
@@ -25,29 +26,20 @@ export default function CodeEditor({
         "editorCursor.foreground": "#ffd166",
       },
     });
+
     monaco.editor.setTheme("cg-dark");
     editor.updateOptions({
       minimap: { enabled: false },
-      fontSize: 16,
-      scrollBeyondLastLine: false,
-      automaticLayout: true,
     });
-  }
+  };
 
   return (
     <Editor
       height="100%"
       defaultLanguage="html"
       value={code}
-      onChange={(v) => onChange(v ?? "")}
+      onChange={(value) => onChange(value ?? "")}
       onMount={handleMount}
-      options={{
-        wordWrap: "on",
-        lineNumbers: "on",
-        glyphMargin: false,
-        folding: true,
-        minimap: { enabled: false },
-      }}
     />
   );
 }
