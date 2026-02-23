@@ -136,6 +136,20 @@ body,
   align-items: center;
 }
 
+.btn-valider {
+  background: #6f7fe3;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.btn-suivant {
+  background: #ffd36e;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+}
+
 /* editor wrapper: make editor fill */
 .editor-wrapper {
   flex: 1;

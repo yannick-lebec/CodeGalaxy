@@ -1,5 +1,5 @@
 {
-  "name": "code_kids_backend",
+  "name": "code-galaxy-backend",
   "version": "0.1.0",
   "description": "Backend for Code Kids (Express + TypeScript)",
   "main": "dist/server.js",
