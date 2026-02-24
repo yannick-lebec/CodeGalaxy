@@ -1,8 +1,11 @@
+/* Reset global pour éviter les comportements différents selon le navigateur */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* Configuration globale */
 html,
 body,
 #root {
@@ -12,6 +15,8 @@ body,
   color: #111;
 }
 
+/* ================= HEADER ================= */
+
 /* top header */
 .cg-header {
   background: linear-gradient(90deg, #412268 0%, #ff6fd8 60%, #ffd36e 100%);
@@ -19,6 +24,7 @@ body,
   padding: 18px 0;
   box-shadow: 0 6px 20px rgba(16, 24, 40, 0.12);
 }
+
 .cg-header-inner {
   width: 1200px;
   margin: 0 auto;
@@ -26,6 +32,7 @@ body,
   align-items: center;
   justify-content: space-between;
 }
+
 .logo {
   font-size: 28px;
   width: 48px;
@@ -36,11 +43,13 @@ body,
   align-items: center;
   justify-content: center;
 }
+
 .title .brand {
   font-weight: 800;
   font-size: 40px;
   letter-spacing: 0.4px;
 }
+
 .title .subtitle {
   font-size: 12px;
   opacity: 0.95;
@@ -54,6 +63,8 @@ body,
   padding: 0 12px;
 }
 
+/* ================= HERO CARD ================= */
+
 .hero-card {
   display: flex;
   align-items: center;
@@ -65,11 +76,13 @@ body,
   margin-bottom: 26px;
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
+
 .hero-left {
   display: flex;
   gap: 18px;
   align-items: center;
 }
+
 .badge {
   width: 56px;
   height: 56px;
@@ -83,17 +96,19 @@ body,
   font-size: 20px;
   box-shadow: 0 6px 20px rgba(255, 77, 190, 0.18);
 }
+
 .hero-left h2 {
   font-size: 20px;
   color: #4a2166;
   margin-bottom: 6px;
 }
+
 .hero-left p {
   color: #6b4f73;
   opacity: 0.95;
 }
 
-.btn-commencer{
+.btn-commencer {
   background: #ffd36e;
   padding: 8px;
   border-radius: 5px;
@@ -101,10 +116,14 @@ body,
   border: 2px solid #412268;
 }
 
+/* ================= WORK AREA ================= */
+
 .work-area {
   display: flex;
   gap: 20px;
 }
+
+/* ================= CARDS ================= */
 
 /* cards */
 .editor-card,
@@ -123,10 +142,12 @@ body,
   flex-direction: column;
   min-height: 520px;
 }
+
 .editor-card {
   background: #F36AD1;
   color: #fff;
 }
+
 .card-title {
   padding: 14px 18px;
   font-weight: 700;
@@ -136,6 +157,7 @@ body,
   align-items: center;
 }
 
+/* buttons */
 .btn-valider {
   background: #6f7fe3;
   border: none;
@@ -156,6 +178,7 @@ body,
   padding: 12px;
   height: 100%;
 }
+
 .editor-wrapper .monaco-editor {
   border-radius: 8px;
   overflow: hidden;
@@ -164,14 +187,16 @@ body,
 .preview-card {
   padding: 12px;
 }
+
 .preview-wrapper {
   flex: 1;
   background: #FFCD75;
   border-radius: 10px;
   padding: 16px;
   overflow: auto;
-  border: 2px rgba(128, 96, 170, 0.12);
+  border: 2px solid rgba(128, 96, 170, 0.12);
 }
+
 .preview-iframe {
   width: 100%;
   height: 100%;
