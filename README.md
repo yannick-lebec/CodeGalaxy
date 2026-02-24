@@ -1,11 +1,11 @@
-✨ CodeGalaxy
+# ✨ CodeGalaxy
 
 CodeGalaxy est une plateforme d’apprentissage interactive du HTML.
 L’utilisateur peut écrire du code, voir le rendu en temps réel et naviguer entre différents exercices stockés en base de données.
 
 Ce projet est un MVP full-stack développé avec React, Express et PostgreSQL (Neon), dockerisé pour faciliter le déploiement.
 
-🚀 Fonctionnalités
+## 🚀 Fonctionnalités
 
 ✍️ Éditeur de code HTML interactif
 
@@ -21,7 +21,7 @@ Ce projet est un MVP full-stack développé avec React, Express et PostgreSQL (N
 
 🐳 Environnement dockerisé (frontend + backend)
 
-🛠️ Stack technique
+## 🛠️ Stack technique
 Frontend
 
 React
@@ -32,9 +32,11 @@ Vite
 
 React Router
 
-Gestion d’état avec useState
+useState
 
-Requêtes asynchrones avec fetch et async/await
+async/await
+
+fetch
 
 Backend
 
@@ -42,13 +44,13 @@ Node.js
 
 Express
 
-PostgreSQL (client pg)
+PostgreSQL (pg)
 
 Pool de connexions
 
 Base de données
 
-PostgreSQL (Neon - base cloud)
+PostgreSQL (Neon)
 
 DevOps
 
@@ -56,107 +58,92 @@ Docker
 
 Docker Compose
 
-🏗️ Architecture
+## 🏗️ Architecture
 React (Frontend)
         ↓ fetch API
 Express (Backend)
         ↓ SQL
 PostgreSQL (Neon)
-Flux d’une requête
-
-L’utilisateur ouvre un exercice.
-
-Le frontend fait un fetch vers /exercices/:slug.
-
-Le backend exécute une requête SQL paramétrée.
-
-PostgreSQL retourne les données.
-
-Le frontend affiche l’exercice et le starter code.
-
-📦 Installation en local
+### 📦 Installation
 1️⃣ Cloner le projet
 git clone https://github.com/yannick-lebec/CodeGalaxy.git
 cd CodeGalaxy
-2️⃣ Configurer les variables d’environnement
-
-Créer un fichier .env à la racine du projet :
-
+2️⃣ Créer un fichier .env à la racine
 DATABASE_URL=postgresql://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require
-
-⚠️ Remplacer par votre URL Neon.
-
-3️⃣ Lancer le projet avec Docker
+3️⃣ Lancer le projet
 docker compose up --build
 
-Frontend :
-
+### Frontend :
 http://localhost:5173
 
-Backend :
-
+### Backend :
 http://localhost:3000
-📚 Structure du projet
+
+## 📚 Structure du projet
 CodeGalaxy/
 │
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
-│   │   ├── App.tsx
-│   │   └── main.tsx
+│   │   └── App.tsx
 │
 ├── backend/
 │   ├── src/
 │   │   ├── server.ts
 │   │   └── db.ts
 │
-├── docker-compose.yml
-└── README.md
+└── docker-compose.yml
 🗄️ Base de données
 
-Le projet utilise PostgreSQL (Neon).
+### Le projet utilise une seule table : exercices.
 
 Table exercices
-Colonne	Type	Description
-id	SERIAL (PK)	Identifiant unique
-slug	VARCHAR	Identifiant URL unique
-level	INT	Niveau de difficulté
-title	TEXT	Titre de l’exercice
-description	TEXT	Description pédagogique
-starter_code	TEXT	Code initial affiché
-next_exercice	VARCHAR	Slug de l’exercice suivant
+
+id (PRIMARY KEY)
+
+slug (unique)
+
+level
+
+title
+
+description
+
+starter_code
+
+next_exercice
 
 Les exercices sont récupérés dynamiquement via l’API Express.
 
-🔐 Bonnes pratiques implémentées
+### 🔐 Bonnes pratiques
 
-Requêtes SQL paramétrées ($1) pour éviter les injections SQL
+Requêtes SQL paramétrées ($1)
 
-Pool de connexions PostgreSQL
+Pool PostgreSQL
 
-Variables d’environnement pour sécuriser la connexion à la base
-
-Séparation frontend / backend
+Variables d’environnement
 
 Architecture REST
 
-🎯 Objectif pédagogique
+Séparation frontend / backend
+
+## 🎯 Objectif pédagogique
 
 Ce projet démontre la maîtrise de :
 
-React (routing, state, gestion d’événements)
+React (state, routing, événements)
 
-Fonctions asynchrones (async/await)
+async/await
 
-Création d’API REST avec Express
+Express (routes API)
 
-Requêtes SQL (SELECT avec paramètres)
+SQL (SELECT avec paramètres)
 
-Connexion à une base PostgreSQL cloud
+PostgreSQL
 
-Conteneurisation avec Docker
+Docker
 
-👨‍💻 Auteur
+## 👨‍💻 Auteur
 
 Projet réalisé dans le cadre de la formation Ada Tech School.
