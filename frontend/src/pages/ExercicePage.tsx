@@ -16,8 +16,6 @@ type ExerciceApi = {
   next_exercice: string | null;
 };
 
-// ✅ Validators côté frontend (car c'est du JS)
-// Tu peux en ajouter autant que tu veux
 const validators: Record<string, (code: string) => boolean> = {
   "exercice-1": (code) =>
     code.includes("<h1>") &&
@@ -36,7 +34,7 @@ export default function ExercicePage() {
   const [code, setCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
-  // ✅ Charge l'exercice depuis le backend
+  
   useEffect(() => {
     if (!slug) return;
 
