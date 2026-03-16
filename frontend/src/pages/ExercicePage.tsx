@@ -11,7 +11,6 @@ import HeroCard from "../componants/HeroCard";
 import Preview from "../componants/Preview";
 
 // Typage des données reçues depuis l'API backend
-// Cela correspond exactement à la structure de la table PostgreSQL
 type ExerciceApi = {
   id: number;
   slug: string;
