@@ -1,32 +1,46 @@
-/* Reset global pour éviter les comportements différents selon le navigateur */
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-/* Configuration globale */
 html,
 body,
 #root {
-  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
   font-family: "Inter", system-ui, Arial, sans-serif;
-  background: #fbf9ff;
+  background: #f3f0f7;
   color: #111;
 }
 
-/* ================= HEADER ================= */
+.cg-app {
+  min-height: 100vh;
+}
 
-/* top header */
+.cg-main {
+  padding-bottom: 32px;
+}
+
+.container {
+  width: 1200px;
+  max-width: calc(100% - 32px);
+  margin: 24px auto;
+}
+
 .cg-header {
-  background: linear-gradient(90deg, #412268 0%, #ff6fd8 60%, #ffd36e 100%);
+  background: linear-gradient(90deg, #5b2a86 0%, #ea64c5 55%, #efc96b 100%);
   color: white;
   padding: 18px 0;
-  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.12);
 }
 
 .cg-header-inner {
   width: 1200px;
+  max-width: calc(100% - 32px);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -34,188 +48,228 @@ body,
 }
 
 .logo {
-  font-size: 28px;
   width: 48px;
   height: 48px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 28px;
 }
 
 .title .brand {
+  margin: 0;
+  font-size: 32px;
   font-weight: 800;
-  font-size: 40px;
-  letter-spacing: 0.4px;
+  line-height: 1.1;
 }
 
 .title .subtitle {
-  font-size: 12px;
-  opacity: 0.95;
   margin-top: 4px;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  opacity: 0.95;
 }
-
-.container {
-  width: 1200px;
-  margin: 28px auto;
-  padding: 0 12px;
-}
-
-/* ================= HERO CARD ================= */
 
 .hero-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(180deg, #fff, #fff);
-  padding: 22px;
+  gap: 20px;
+  background: #fff;
   border-radius: 18px;
-  box-shadow: 0 8px 30px rgba(99, 50, 163, 0.07);
-  margin-bottom: 26px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(32, 20, 56, 0.06);
 }
 
 .hero-left {
   display: flex;
-  gap: 18px;
   align-items: center;
+  gap: 16px;
+  min-width: 0;
 }
 
 .badge {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, #ff8a00, #ff4dbe);
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff8b3d 0%, #f25cc7 100%);
   color: white;
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
   font-size: 20px;
-  box-shadow: 0 6px 20px rgba(255, 77, 190, 0.18);
+  flex-shrink: 0;
 }
 
 .hero-left h2 {
+  margin: 0 0 6px;
   font-size: 20px;
-  color: #4a2166;
-  margin-bottom: 6px;
+  line-height: 1.2;
 }
 
 .hero-left p {
-  color: #6b4f73;
-  opacity: 0.95;
+  margin: 0;
+  color: #333;
 }
 
 .btn-commencer {
-  background: #ffd36e;
-  padding: 8px;
-  border-radius: 5px;
-  font-weight: bold;
-  border: 2px solid #412268;
+  border: none;
+  background: #efc055;
+  color: #111;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
 }
-
-/* ================= WORK AREA ================= */
 
 .work-area {
   display: flex;
   gap: 20px;
+  align-items: flex-start;
 }
 
-/* ================= CARDS ================= */
-
-/* cards */
 .editor-card,
 .preview-card {
   flex: 1;
-  border-radius: 12px;
-  overflow: hidden;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(250, 245, 255, 0.95)
-  );
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 8px 30px rgba(20, 18, 30, 0.03);
-  display: flex;
-  flex-direction: column;
-  min-height: 450px;
+  min-width: 0;
+  border-radius: 16px;
 }
 
 .editor-card {
-  background: #F36AD1;
-  color: #fff;
+  background: #f255c8;
+  color: white;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(32, 20, 56, 0.06);
 }
 
 .card-title {
-  padding: 14px 18px;
   font-weight: 700;
-  color: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-size: 16px;
 }
 
-/* buttons */
-.btn-valider {
-  background: #6f7fe3;
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editor-section h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.editor-box {
+  width: 100%;
+  height: 220px;
+  min-height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #412268;
+}
+
+.btn-valider,
+.btn-suivant {
   border: none;
-  padding: 10px;
-  font-size: 20px;
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-valider {
+  background: #6c7df0;
+  color: white;
 }
 
 .btn-suivant {
-  background: #ffd36e;
-  border: none;
-  padding: 10px;
-  font-weight: bold;
+  background: #efc055;
+  color: #111;
 }
 
-/* editor wrapper: make editor fill */
-.editor-wrapper {
-  flex: 1;
-  padding: 12px;
-  height: 100%;
-}
-
-.editor-wrapper .monaco-editor {
-  border-radius: 8px;
-  overflow: hidden;
+.editor-card p {
+  margin: 0;
+  font-weight: 600;
 }
 
 .preview-card {
+  background: white;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(32, 20, 56, 0.06);
 }
 
 .preview-wrapper {
-  flex: 1;
-  background: #FFCD75;
-  border-radius: 10px;
-  padding: 16px;
-  overflow: auto;
-  border: 2px solid rgba(128, 96, 170, 0.12);
+  width: 100%;
+  height: 470px;
+  min-height: 470px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #e6e0eb;
 }
 
 .preview-iframe {
   width: 100%;
   height: 100%;
-  border-radius: 8px;
   border: none;
+  display: block;
   background: white;
 }
 
-/* responsive */
+button {
+  font-family: inherit;
+}
+
 @media (max-width: 1100px) {
-  .cg-header-inner,
-  .container {
-    width: 96%;
-  }
   .work-area {
     flex-direction: column;
   }
+
   .editor-card,
   .preview-card {
-    min-height: 420px;
+    width: 100%;
+  }
+
+  .preview-wrapper {
+    height: 380px;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  .cg-header-inner {
+    max-width: calc(100% - 20px);
+  }
+
+  .hero-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-left {
+    align-items: flex-start;
+  }
+
+  .title .brand {
+    font-size: 28px;
+  }
+
+  .editor-box {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .preview-wrapper {
+    height: 320px;
+    min-height: 320px;
   }
 }
