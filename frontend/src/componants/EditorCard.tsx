@@ -6,8 +6,9 @@ type EditorCardProps = {
   css: string;
   onChange: (value: string) => void;
   onCssChange: (value: string) => void;
-  validate: (code: string) => boolean;
+  validate: (code: string, css: string) => boolean;
   onNext: () => void;
+  hasNext: boolean;
 };
 
 export default function EditorCard({
@@ -17,12 +18,13 @@ export default function EditorCard({
   onCssChange,
   validate,
   onNext,
+  hasNext,
 }: EditorCardProps) {
   const [message, setMessage] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
 
   function checkAnswer() {
-    const ok = validate(code);
+    const ok = validate(code, css);
 
     if (ok) {
       setMessage("👍 Réponse correcte !");
@@ -57,10 +59,14 @@ export default function EditorCard({
 
       {message && <p>{message}</p>}
 
-      {isCorrect && (
+      {isCorrect && hasNext && (
         <button className="btn-suivant" onClick={onNext}>
           Exercice suivant
         </button>
+      )}
+
+      {isCorrect && !hasNext && (
+        <p>🏆 Bravo ! Tu as terminé toutes les missions !</p>
       )}
     </div>
   );

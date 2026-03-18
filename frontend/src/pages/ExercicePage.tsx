@@ -17,14 +17,47 @@ type ExerciceApi = {
   next_exercice: string | null;
 };
 
-const validators: Record<string, (code: string) => boolean> = {
+const validators: Record<string, (code: string, css: string) => boolean> = {
   "exercice-1": (code) =>
     code.includes("<h1>") &&
-    code.includes("</h1>") &&
+    code.includes("</h1>"),
+
+  "exercice-2": (code) =>
     code.includes("<p>") &&
     code.includes("</p>"),
 
-  "exercice-2": (code) => code.includes("<img") && code.includes("src="),
+  "exercice-3": (code) =>
+    code.includes("<img") &&
+    code.includes('src="/chat.jpg"'),
+
+  "exercice-4": (code) =>
+    code.includes("<button>") &&
+    code.includes("</button>") &&
+    code.includes("Clique-moi"),
+
+  "exercice-5": (code, css) =>
+    code.includes("<h1>") &&
+    code.includes("</h1>") &&
+    css.includes("color") &&
+    css.includes("red"),
+
+  "exercice-6": (code, css) =>
+    code.includes("<p>") &&
+    code.includes("</p>") &&
+    css.includes("font-size"),
+
+  "exercice-7": (code, css) =>
+    code.includes("<img") &&
+    code.includes('src="/chat.jpg"') &&
+    css.includes("margin") &&
+    css.includes("auto"),
+
+  "exercice-8": (code, css) =>
+    code.includes("<div") &&
+    code.includes("<h1>") &&
+    code.includes("<img") &&
+    code.includes("<p>") &&
+    css.includes(".carte"),
 };
 
 export default function ExercicePage() {
@@ -107,8 +140,8 @@ export default function ExercicePage() {
           title={exercise.title}
           description={exercise.description}
           onStart={() => {
-            setCode(exercise.starter_code ?? "");
-            setCss(exercise.starter_css ?? "");
+            setCode("");
+            setCss("");
           }}
         />
 
@@ -120,6 +153,7 @@ export default function ExercicePage() {
             onCssChange={setCss}
             validate={validate}
             onNext={goNext}
+            hasNext={!!exercise.next_exercice}
           />
 
           <Preview code={code} css={css} />
