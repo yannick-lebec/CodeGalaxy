@@ -76,7 +76,8 @@ export default function ExercicePage() {
       try {
         setLoading(true);
 
-        const res = await fetch(`http://localhost:3000/exercices/${slug}`);
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+        const res = await fetch(`${API_URL}/exercices/${slug}`);
 
         if (!res.ok) {
           setExercise(null);
