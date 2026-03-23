@@ -9,9 +9,9 @@ const app = express();
 
 // Autorise les requêtes venant du frontend
 const allowedOrigins = [
-  "http://localhost:5173",
-  process.env.FRONTEND_URL,
-].filter((o): o is string => Boolean(o));
+  /^http:\/\/localhost:\d+$/,
+  /^https:\/\/code-galaxy[a-z0-9-]*\.vercel\.app$/,
+];
 
 app.use(cors({ origin: allowedOrigins }));
 
