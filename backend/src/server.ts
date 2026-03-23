@@ -8,7 +8,12 @@ import "dotenv/config"; // Permet d'utiliser les variables d'environnement
 const app = express();
 
 // Autorise les requêtes venant du frontend
-app.use(cors({ origin: "http://localhost:5173" }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+].filter((o): o is string => Boolean(o));
+
+app.use(cors({ origin: allowedOrigins }));
 
 // Permet de lire les requêtes JSON
 app.use(express.json());
