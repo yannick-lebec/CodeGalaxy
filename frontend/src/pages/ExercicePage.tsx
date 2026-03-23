@@ -68,36 +68,59 @@ export default function ExercicePage() {
   const [code, setCode] = useState("");
   const [css, setCss] = useState("");
   const [loading, setLoading] = useState(true);
+  const [networkError, setNetworkError] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
 
+    let cancelled = false;
+
     async function loadExercise() {
-      try {
-        setLoading(true);
+      setLoading(true);
+      setNetworkError(false);
 
-        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-        const res = await fetch(`${API_URL}/exercices/${slug}`);
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+      const MAX_RETRIES = 5;
+      const RETRY_DELAY = 3000;
 
-        if (!res.ok) {
-          setExercise(null);
+      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const res = await fetch(`${API_URL}/exercices/${slug}`);
+
+          if (cancelled) return;
+
+          if (res.status === 404) {
+            setExercise(null);
+            setLoading(false);
+            return;
+          }
+
+          if (!res.ok) throw new Error(`Server error ${res.status}`);
+
+          const data: ExerciceApi = await res.json();
+          setExercise(data);
+          setCode(data.starter_code ?? "");
+          setCss(data.starter_css ?? "");
+          setLoading(false);
           return;
+        } catch (err) {
+          console.error(`Attempt ${attempt} failed:`, err);
+          if (attempt < MAX_RETRIES) {
+            setNetworkError(true);
+            await new Promise((r) => setTimeout(r, RETRY_DELAY));
+            if (cancelled) return;
+          }
         }
+      }
 
-        const data: ExerciceApi = await res.json();
-
-        setExercise(data);
-        setCode(data.starter_code ?? "");
-        setCss(data.starter_css ?? "");
-      } catch (err) {
-        console.error(err);
+      if (!cancelled) {
         setExercise(null);
-      } finally {
         setLoading(false);
       }
     }
 
     loadExercise();
+    return () => { cancelled = true; };
   }, [slug]);
 
   function goNext() {
@@ -111,7 +134,7 @@ export default function ExercicePage() {
       <div className="cg-app">
         <Header />
         <main className="cg-main container">
-          <h2>Chargement...</h2>
+          <h2>{networkError ? "Connexion au serveur..." : "Chargement..."}</h2>
         </main>
       </div>
     );
