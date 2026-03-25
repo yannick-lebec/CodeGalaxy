@@ -38,7 +38,7 @@ export default function HomePage() {
           <div className="floating floating-2">🚀</div>
           <div className="floating floating-3">💻</div>
 
-          <div className="home-hero-badge">Gratuit &amp; sans inscription</div>
+          <div className="home-hero-badge">🏆 Connecte-toi pour garder ton score !</div>
           <h1 className="home-hero-title">
             Apprends à coder <br />
             <span className="home-hero-gradient">en t'amusant</span>
