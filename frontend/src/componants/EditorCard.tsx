@@ -10,6 +10,7 @@ type EditorCardProps = {
   onNext: () => void;
   hasNext: boolean;
   canValidate: boolean;
+  onValidated?: () => void;
 };
 
 export default function EditorCard({
@@ -21,6 +22,7 @@ export default function EditorCard({
   onNext,
   hasNext,
   canValidate,
+  onValidated,
 }: EditorCardProps) {
   const [message, setMessage] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
@@ -31,6 +33,7 @@ export default function EditorCard({
     if (ok) {
       setMessage("🎉 Super ! Tu as réussi !");
       setIsCorrect(true);
+      onValidated?.();
     } else {
       setMessage("🤔 Pas encore... Regarde bien et réessaie !");
       setIsCorrect(false);

@@ -5,6 +5,7 @@ import EditorCard from "../componants/EditorCard";
 import Header from "../componants/Header";
 import HeroCard from "../componants/HeroCard";
 import Preview from "../componants/Preview";
+import { useSession } from "../lib/auth-client";
 
 type ExerciceApi = {
   id: number;
@@ -64,12 +65,27 @@ export default function ExercicePage() {
   const { slug } = useParams<{ slug?: string }>();
   const navigate = useNavigate();
 
+  const { data: session } = useSession();
+
   const [exercise, setExercise] = useState<ExerciceApi | null>(null);
   const [code, setCode] = useState("");
   const [css, setCss] = useState("");
   const [loading, setLoading] = useState(true);
   const [networkError, setNetworkError] = useState(false);
   const [started, setStarted] = useState(false);
+
+  async function saveProgress(exerciceSlug: string) {
+    if (!session) return;
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+    try {
+      await fetch(`${API_URL}/progress/${exerciceSlug}`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch {
+      // non-bloquant : échec silencieux
+    }
+  }
 
   useEffect(() => {
     if (!slug) return;
@@ -183,6 +199,7 @@ export default function ExercicePage() {
             onNext={goNext}
             hasNext={!!exercise.next_exercice}
             canValidate={!requireStart || started}
+            onValidated={() => saveProgress(exercise.slug)}
           />
 
           <Preview code={code} css={css} />
