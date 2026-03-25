@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../componants/Header";
+import { useSession } from "../lib/auth-client";
 
 const features = [
   {
@@ -27,6 +29,35 @@ const steps = [
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { data: session } = useSession();
+  const [nextSlug, setNextSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!session) {
+      setNextSlug(null);
+      return;
+    }
+
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+    async function loadProgress() {
+      try {
+        const [exercicesRes, progressRes] = await Promise.all([
+          fetch(`${API_URL}/exercices`),
+          fetch(`${API_URL}/progress`, { credentials: "include" }),
+        ]);
+        const exercices: { slug: string }[] = await exercicesRes.json();
+        const completed: string[] = await progressRes.json();
+
+        const next = exercices.find((e) => !completed.includes(e.slug));
+        setNextSlug(next ? next.slug : exercices[exercices.length - 1].slug);
+      } catch {
+        setNextSlug(null);
+      }
+    }
+
+    loadProgress();
+  }, [session]);
 
   return (
     <div>
@@ -47,12 +78,22 @@ export default function HomePage() {
             Pars en mission, découvre le HTML et le CSS, et crée tes premières
             pages web étape par étape.
           </p>
-          <button
-            className="home-start-btn"
-            onClick={() => navigate("/exercice-1")}
-          >
-            Commencer l'aventure →
-          </button>
+
+          {session && nextSlug ? (
+            <button
+              className="home-start-btn"
+              onClick={() => navigate(`/${nextSlug}`)}
+            >
+              Continuer l'aventure →
+            </button>
+          ) : (
+            <button
+              className="home-start-btn"
+              onClick={() => navigate("/exercice-1")}
+            >
+              Commencer l'aventure →
+            </button>
+          )}
         </main>
 
         {/* Features */}
@@ -87,7 +128,7 @@ export default function HomePage() {
           <h2>Prêt à explorer la galaxie du code ?</h2>
           <button
             className="home-start-btn"
-            onClick={() => navigate("/exercice-1")}
+            onClick={() => navigate(nextSlug && session ? `/${nextSlug}` : "/exercice-1")}
           >
             Lancer le premier exercice 🚀
           </button>
