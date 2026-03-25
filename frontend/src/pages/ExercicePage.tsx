@@ -69,6 +69,7 @@ export default function ExercicePage() {
   const [css, setCss] = useState("");
   const [loading, setLoading] = useState(true);
   const [networkError, setNetworkError] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -120,6 +121,7 @@ export default function ExercicePage() {
     }
 
     loadExercise();
+    setStarted(false);
     return () => { cancelled = true; };
   }, [slug]);
 
@@ -153,6 +155,7 @@ export default function ExercicePage() {
   }
 
   const validate = validators[exercise.slug] ?? (() => false);
+  const requireStart = exercise.level <= 4;
 
   return (
     <div className="cg-app">
@@ -166,6 +169,7 @@ export default function ExercicePage() {
           onStart={() => {
             setCode("");
             setCss("");
+            setStarted(true);
           }}
         />
 
@@ -178,6 +182,7 @@ export default function ExercicePage() {
             validate={validate}
             onNext={goNext}
             hasNext={!!exercise.next_exercice}
+            canValidate={!requireStart || started}
           />
 
           <Preview code={code} css={css} />

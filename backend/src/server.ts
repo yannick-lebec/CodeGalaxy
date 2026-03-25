@@ -1,8 +1,8 @@
 // Import des dépendances
+import "dotenv/config"; // Permet d'utiliser les variables d'environnement
 import express from "express";
 import cors from "cors";
 import { pool } from "./db";
-import "dotenv/config"; // Permet d'utiliser les variables d'environnement
 
 // Création de l'application Express
 const app = express();

@@ -9,6 +9,7 @@ type EditorCardProps = {
   validate: (code: string, css: string) => boolean;
   onNext: () => void;
   hasNext: boolean;
+  canValidate: boolean;
 };
 
 export default function EditorCard({
@@ -19,6 +20,7 @@ export default function EditorCard({
   validate,
   onNext,
   hasNext,
+  canValidate,
 }: EditorCardProps) {
   const [message, setMessage] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
@@ -27,17 +29,17 @@ export default function EditorCard({
     const ok = validate(code, css);
 
     if (ok) {
-      setMessage("👍 Réponse correcte !");
+      setMessage("🎉 Super ! Tu as réussi !");
       setIsCorrect(true);
     } else {
-      setMessage("👎 Réponse incorrecte. Réessaie !");
+      setMessage("🤔 Pas encore... Regarde bien et réessaie !");
       setIsCorrect(false);
     }
   }
 
   return (
     <div className="editor-card">
-      <div className="card-title">Labo de Code</div>
+      <div className="card-title">🚀 Labo de Code</div>
 
       <div className="editor-section">
         <h3>HTML</h3>
@@ -53,20 +55,22 @@ export default function EditorCard({
         </div>
       </div>
 
-      <button className="btn-valider" onClick={checkAnswer}>
-        Valider
+      <button className="btn-valider" onClick={checkAnswer} disabled={!canValidate}>
+        {canValidate ? "✅ Vérifier ma réponse" : "👆 Clique sur Commencer d'abord !"}
       </button>
 
-      {message && <p>{message}</p>}
+      {message && (
+        <p className={isCorrect ? "msg-correct" : "msg-incorrect"}>{message}</p>
+      )}
 
       {isCorrect && hasNext && (
         <button className="btn-suivant" onClick={onNext}>
-          Exercice suivant
+          Mission suivante ➜
         </button>
       )}
 
       {isCorrect && !hasNext && (
-        <p>🏆 Bravo ! Tu as terminé toutes les missions !</p>
+        <p className="msg-win">🏆 Félicitations ! Tu as terminé toutes les missions !</p>
       )}
     </div>
   );
